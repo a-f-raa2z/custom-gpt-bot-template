@@ -1,21 +1,47 @@
 <!DOCTYPE html>
+<html>
 <head>
-  <title>OpenAI Quickstart</title>
-  <link
-    rel="shortcut icon"
-    href="{{ url_for('static', filename='dog.png') }}"
-  />
+  <title>My GPT Bot</title>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='dog.png') }}"/>
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
 </head>
 
 <body>
-  <img src="{{ url_for('static', filename='dog.png') }}" class="icon" />
-  <h3>Name my pet</h3>
-  <form action="/" method="post">
-    <input type="text" name="animal" placeholder="Enter an animal" required />
-    <input type="submit" value="Generate names" />
-  </form>
-  {% if result %}
-  <div class="result">{{ result }}</div>
-  {% endif %}
+<h3>Simple Bot Builder</h3>
+<div class = "row" id="bot-knowledge-form">
+<div class = "column">
+  <div class = "chatbox">
+    <h4>Chat</h4>
+    <div class="chat-container">
+      {% for item in chat_history %}
+      {% if item.user %}
+      <div class = "bubble user-bubble"> {{ item['user'] }}
+      </div>
+      {% endif %}<br>
+      {%if item.bot %}
+      <div class = "bubble bot-bubble">{{ item['bot'] }}</div>
+      {% endif %}<br>
+      {% endfor %}
+    </div>
+    <form action="/ask" method="post" id="ask-question-form">
+      <input type="hidden" id="bot-knowledge-chat" name="botknowledge" value="{{ botknowledge }}">
+      <div class = "userinput">
+        <input type="text" id="userquestion" name="userquestion">
+        <input type="submit" value="Ask">
+      </div>
+    </form>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="chatbox">
+      <form action="/" method="POST">
+        <h4>Bot Knowledge</h4>
+        <textarea id="botknowledge" name="botknowledge">{{ botknowledge }}</textarea>
+        <input type="submit" value="Add & Refresh">
+      </form>
+    </div>
+  </div>
+</div>
 </body>
+</html>
