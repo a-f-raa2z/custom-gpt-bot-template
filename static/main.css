@@ -118,10 +118,11 @@ align-items: left;
 .bubble{
 margin:10px;
 padding:10px;
-border-radius: 20px;
+border-radius: 15px;
 max-width:50%;
-background: $000000;
+background: #000000;
 border:none;
+color:#ffffff;
 }
 
 .user-bubble{
